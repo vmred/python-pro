@@ -1,0 +1,1 @@
+awk "NR==$LINE_NUM" "$FILENAME" | wc -m
