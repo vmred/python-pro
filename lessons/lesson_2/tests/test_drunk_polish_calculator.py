@@ -91,6 +91,9 @@ class TestIntegrationDrunkPolishCalculator:
     @pytest.mark.parametrize('expression, expected', [
         ('2 2 +', '4.0\n'),
         ('2 2 4 * 8 / +', '3.0\n'),  # 2 + 2 * 4 / 8 == 3.0
+        ('2 2 4 * 8 / -', '1.0\n'),  # 2 - 2 * 4 / 8 == 1.0
+        ('3 1 -', '2.0\n'),
+        ('4 2 /', '2.0\n'),
     ])
     def test_calculate_expression_positive(self, expression, expected, monkeypatch, capsys):
         monkeypatch.setattr('builtins.input', lambda _: expression)
