@@ -4,8 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pytest = "7.3.1"
+coverage = "7.2.6"
+pytest-cov = "4.1.0"
+pytest-html = "3.2.0"
 
 [dev-packages]
+black="23.3.0"
+isort="5.12.0"
 
 [requires]
 python_version = "3.9"
