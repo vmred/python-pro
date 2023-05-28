@@ -1,6 +1,12 @@
 import pytest
 
-from lessons.lesson_2.drunk_polish_calculator import op_plus, op_minus, op_multiply, op_divide, main
+from lessons.lesson_2.drunk_polish_calculator import (
+    main,
+    op_divide,
+    op_minus,
+    op_multiply,
+    op_plus
+)
 
 
 class TestUnitDrunkPolishCalculator:
