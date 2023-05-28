@@ -65,7 +65,7 @@ class TestUnitDrunkPolishCalculator:
     ])
     def test_multiply_negative(self, x, y, expected):
         with pytest.raises(expected):
-            op_minus(x, y)
+            op_multiply(x, y)
 
     @pytest.mark.parametrize('x, y, expected', [
         (5, 3, 1.6666666666666667),
