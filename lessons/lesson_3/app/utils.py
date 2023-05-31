@@ -1,7 +1,40 @@
+from typing import Any
+from urllib import parse
+
+import dateutil.parser
 import requests
 
 from datetime import datetime
-from urllib import parse
+
+
+def check_if_bank_supported(value: str) -> str:
+    """
+    Checks if bank is supported and returns abbreviation or raises exception otherwise
+    :param value: bank value
+    :return: bank abbreviation
+    """
+    value = str(value)
+    allowed_values = {
+        'pb, privatbank, PrivatBank, PB': 'PB',
+        'nbu, nationalbank, NB, NationalBank': 'NBU',
+    }
+    for k, v in allowed_values.items():
+        if value in k:
+            return v
+
+    raise ValueError(f'"{value}" bank is unknown or not supported.')
+
+
+def reformat_date(value: str) -> Any:
+    """
+    Reformat date to d.m.y format or raises an exception
+    :param value: string date
+    :return: formatted date
+    """
+    try:
+        return dateutil.parser.parse(value).strftime("%d.%m.%Y")
+    except:
+        raise ValueError('Invalid date format')
 
 
 def get_currency_iso_code(currency: str) -> int:
@@ -47,6 +80,8 @@ def get_currency_exchange_rate(currency_a: str, currency_b: str) -> str:
 
 
 def get_pb_exchange_rate(convert_currency: str, bank: str, rate_date: str) -> str:
+    bank = check_if_bank_supported(bank)
+    rate_date = reformat_date(rate_date)
     params = {
         'json': '',
         'date': rate_date,  # TODO додати функцію валідації формату дати
