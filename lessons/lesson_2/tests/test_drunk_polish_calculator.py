@@ -31,8 +31,8 @@ class TestUnitDrunkPolishCalculator:
 
     @pytest.mark.parametrize('x, y, expected', [
         (1, 1, 0),
-        (1, -1, 2),
-        (1, 0.2, 0.8),
+        (-1, 1, 2),
+        (0.2, 1, 0.8),
     ])
     def test_minus_positive(self, x, y, expected):
         assert op_minus(x, y) == expected
@@ -68,9 +68,9 @@ class TestUnitDrunkPolishCalculator:
             op_multiply(x, y)
 
     @pytest.mark.parametrize('x, y, expected', [
-        (5, 3, 1.6666666666666667),
-        (2, 1, 2),
-        (2, 0.1, 20)
+        (3, 5, 1.6666666666666667),
+        (1, 2, 1),
+        (0.1, 2, 20)
     ])
     def test_division_positive(self, x, y, expected):
         assert op_divide(x, y) == expected
