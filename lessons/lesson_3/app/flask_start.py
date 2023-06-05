@@ -1,6 +1,7 @@
 from flask import Flask, request
 
-from utils import get_currency_exchange_rate, get_pb_exchange_rate
+from lessons.lesson_3.app.db_practice import get_customers
+from lessons.lesson_3.app.utils import get_currency_exchange_rate, get_pb_exchange_rate
 
 app = Flask(__name__)
 
@@ -24,3 +25,15 @@ def get_pb_rates():
     bank = request.args.get('bank', default='NBU')
     rate_date = request.args.get('rate_date', default='01.11.2022')
     return get_pb_exchange_rate(convert_currency, bank, rate_date)
+
+
+@app.route('/customers', methods=['GET'])
+def customers():
+    state = request.args.get('state', default=None)
+    city = request.args.get('city', default=None)
+
+    return get_customers(state_name=state, city_name=city)
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=8000)
