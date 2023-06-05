@@ -1,7 +1,8 @@
-import os
 import sqlite3
 
-from typing import List, Set
+from typing import List
+
+from variables import LESSON_3_DB_PATH
 
 
 def execute_query(query_sql: str) -> List:
@@ -10,8 +11,7 @@ def execute_query(query_sql: str) -> List:
     :param query_sql: запрос
     :return: результат выполнения запроса
     '''
-    db_pass = os.path.join(os.getcwd(), '../db/chinook.db')
-    connection = sqlite3.connect(db_pass)
+    connection = sqlite3.connect(LESSON_3_DB_PATH)
     cur = connection.cursor()
     result = cur.execute(query_sql).fetchall()
     connection.close()
@@ -38,10 +38,7 @@ def get_employees() -> None:
     unwrapper(execute_query(query_sql))
 
 
-#get_employees()
-
-
-def get_customers(state_name=None, city_name=None) -> None:
+def get_customers(state_name=None, city_name=None) -> List:
     query_sql = '''
         SELECT FirstName
               ,City 
@@ -57,13 +54,8 @@ def get_customers(state_name=None, city_name=None) -> None:
         filter_query = f" WHERE State = '{state_name}'"
 
     query_sql += filter_query
-    return unwrapper(execute_query(query_sql))
+    return execute_query(query_sql)
 
-
-# get_customers()
-# get_customers(city_name='Budapest')
-# get_customers(state_name='RJ')
-# get_customers(state_name='RJ', city_name='Rio de Janeiro')
 
 def get_unique_customers_by_python():
     query_sql = f'''
@@ -77,9 +69,6 @@ def get_unique_customers_by_python():
     return len(result)
 
 
-# print(get_unique_customers_by_python())
-
-
 def get_unique_customers_by_sql():
     query_sql = f'''
             SELECT count(distinct FirstName) as first_names_qty
@@ -90,16 +79,27 @@ def get_unique_customers_by_sql():
     return result
 
 
-#print(get_unique_customers_by_sql())
+def get_invoice_items_profit() -> float:
+    """
+    Sums profit by invoice_items table
+    :return:
+        profit value
+    """
+    query_sql = 'select SUM(ii.UnitPrice * ii.Quantity) from invoice_items as ii;'
+    return execute_query(query_sql)[0][0]
 
 
-query_sql = '''
-      SELECT FirstName
-            ,LastName
-        FROM customers
-'''
-
-result = execute_query(query_sql)
-
-print(result)
-print(result[2][1])
+def get_repeatable_customers() -> List:
+    """
+    Gets customer's names from customers table which occurs more than 1 time
+    :return:
+        List of items (first name, appearance count)
+    """
+    query_sql = '''
+        select c.FirstName, count(*) 
+        from customers c 
+        group by c.FirstName
+        HAVING count(*) > 1
+        order by c.FirstName;
+    '''
+    return execute_query(query_sql)
