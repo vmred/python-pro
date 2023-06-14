@@ -28,7 +28,6 @@ class Card:
 
     @staticmethod
     def hash_data(data):
-        # Використання SHA-256 для хешування даних
         sha256_hash = hashlib.sha256()
         sha256_hash.update(data.encode('utf-8'))
         return sha256_hash.hexdigest()
