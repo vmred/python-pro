@@ -110,6 +110,6 @@ class TestCard:
             status=Status.blocked
         )
     ])
-    def test_activate_card_positive(self, card):
+    def test_block_card(self, card):
         # no really need to compare with something, just check if executed w/o exception
         assert card.block_card() is None
