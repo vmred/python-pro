@@ -2,3 +2,4 @@ Pipfile.lock
 .idea
 .DS_Store
 lessons/lesson_3/db/
+lessons/lesson_6/db/
