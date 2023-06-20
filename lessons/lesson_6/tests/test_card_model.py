@@ -5,7 +5,6 @@ import pytest
 
 from lessons.lesson_6.app.card_repository import CardRepository
 from lessons.lesson_6.app.card_model import Card, Status
-from lessons.lesson_6.app.utils import hash_data
 
 
 class TestCard:
@@ -39,18 +38,20 @@ class TestCard:
         ]
     ])
     def test_save_card_to_sqlite(self, input_data, expected_data, card_repository_sqlite):
-        card_repository_sqlite.save_card(input_data)
-        created_card = card_repository_sqlite.get_card(input_data.pan)
-        assert deepdiff.DeepDiff(input_data.__dict__, created_card, exclude_paths=["root['owner_id']"]) == {}
+        card_id = card_repository_sqlite.save_card(input_data)
+        input_data.card_id = card_id
+        created_card = card_repository_sqlite.get_card(card_id=card_id)
+        assert deepdiff.DeepDiff(input_data.__dict__, created_card.__dict__, exclude_paths=["root['owner_id']"]) == {}
 
     def test_get_card_from_sqlite(self, card_repository_sqlite):
-        card = card_repository_sqlite.get_card(pan='1111 1111 1111 1111')
-        assert card == {
-            'pan': '1111 1111 1111 1111',
+        card = card_repository_sqlite.get_card(pan='1234 5678 9012 3456')
+        assert card.__dict__ == {
+            'card_id': 1,
+            'pan': '1234 5678 9012 3456',
             'expiry_date': '06/25',
-            'cvv': 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3',
+            'cvv': '123',
             'issue_date': '06/24',
-            'owner_id': '52013b76-2310-4619-a34d-6d35a3f0cdb6',
+            'owner_id': '150b5445-04aa-4dc7-8396-71806b82eef9',
             'status': 'new'
         }
 
@@ -65,19 +66,21 @@ class TestCard:
         )
     ])
     def test_save_card_to_postgres(self, input_data, card_repository_postgres):
-        card_repository_postgres.save_card(input_data)
-        created_card = card_repository_postgres.get_card(pan=input_data.pan)
-        assert deepdiff.DeepDiff(input_data.__dict__, created_card, exclude_paths=["root['owner_id']"]) == {}
+        card_id = card_repository_postgres.save_card(input_data)
+        input_data.card_id = card_id
+        created_card = card_repository_postgres.get_card(card_id=card_id)
+        assert deepdiff.DeepDiff(input_data.__dict__, created_card.__dict__, exclude_paths=["root['owner_id']"]) == {}
 
     def test_get_card_from_postgres(self, card_repository_postgres):
-        card = card_repository_postgres.get_card(card_id='1')
+        card = card_repository_postgres.get_card(card_id='1').__dict__
         assert card == {
             'pan': '4444555566667777',
             'expiry_date': '06/25',
             'cvv': '173af653133d964edfc16cafe0aba33c8f500a07f3ba3f81943916910c257705',
             'issue_date': '06/24',
             'owner_id': 'd01fe1d0-9b19-48b1-bf69-e486cf02b445',
-            'status': 'new'
+            'status': 'new',
+            'card_id': 1
         }
 
     @pytest.mark.parametrize('card', [

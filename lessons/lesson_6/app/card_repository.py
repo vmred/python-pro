@@ -21,13 +21,14 @@ class CardRepository:
             raise ValueError(f'Unknown connection: {connection_type}')
         return connection()
 
-    def save_card(self, card: Card) -> None:
-        self.db.execute_query(
+    def save_card(self, card: Card) -> str:
+        result = self.db.execute_query(
             f'''
             INSERT INTO cards (pan, expiry_date, cvv, issue_date, owner_id, status)
             VALUES ('{card.pan}', '{card.expiry_date}', '{card.cvv}', '{card.issue_date}', '{card.owner_id}', 
-            '{card.status}');'''
+            '{card.status}') returning id'''
         )
+        return result[0][0]
 
     def get_card(self, pan: str = None, card_id: str = None) -> Union[dict, Card]:
         condition = f"pan = '{pan}'"
@@ -42,10 +43,11 @@ class CardRepository:
             return {}
 
         return Card(
+            card_id=result[0][0],
             pan=result[0][1],
             expiry_date=result[0][2],
             cvv=result[0][3],
             issue_date=result[0][4],
             owner_id=result[0][5],
             status=result[0][6],
-        ).__dict__
+        )

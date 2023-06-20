@@ -12,7 +12,7 @@ def welcome():
 
 @app.route('/cards/<card_id>', methods=['GET'])
 def get_card(card_id):
-    return card_repository.get_card(card_id=card_id)
+    return card_repository.get_card(card_id=card_id).__dict__
 
 
 if __name__ == "__main__":
