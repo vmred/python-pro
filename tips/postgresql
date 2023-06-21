@@ -1,0 +1,15 @@
+Start postgresql server on mac:
+brew services start postgresql@14
+
+Stop postgresql server on mac:
+brew services stop postgresql@14
+
+Create system user db:
+createdb <username>
+
+Run postgresql cli:
+psql
+
+Create user:
+
+CREATE USER <user> WITH PASSWORD '<password>';
