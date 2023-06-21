@@ -7,6 +7,7 @@ from lessons.lesson_6.app.card_repository import CardRepository
 from lessons.lesson_6.app.card_model import Card, Status
 
 
+@pytest.mark.homework8
 class TestCard:
 
     @pytest.fixture(scope='session')
