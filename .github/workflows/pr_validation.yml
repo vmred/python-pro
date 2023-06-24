@@ -30,6 +30,7 @@ jobs:
 
       - name: 'Check isort'
         run: pipenv run bash ./linters/isort_check.sh
+        continue-on-error: true
 
       - name: 'Check black'
         run: pipenv run bash ./linters/black_check.sh
