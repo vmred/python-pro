@@ -31,7 +31,3 @@ def create_card():
         )
     )
     return jsonify({'id': card_id})
-
-
-if __name__ == "__main__":
-    app.run(debug=True, port=8000)
