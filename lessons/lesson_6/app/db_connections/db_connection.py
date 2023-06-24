@@ -1,12 +1,13 @@
 class DBConnection:
-    connection = None
+    def __init__(self):
+        self.connection = None
+        self.connection_pool = None
 
-    @staticmethod
-    def create_connection():
-        raise NotImplemented
+    def create_connection(self, **kwargs):
+        raise NotImplementedError
 
     def get_connection(self, **kwargs):
-        raise NotImplemented
+        raise NotImplementedError
 
     def execute_query(self, query):
-        raise NotImplemented
+        raise NotImplementedError

@@ -10,9 +10,9 @@ class Status:
 
 
 class Card:
+    # pylint: disable=too-many-arguments
     def __init__(
-            self, pan: str, expiry_date: str, cvv: str, issue_date: str, owner_id: uuid, status: Status,
-            card_id: str = None
+        self, pan: str, expiry_date: str, cvv: str, issue_date: str, owner_id: uuid, status: Status, card_id: str = None
     ):
         self.card_id = card_id
         self.pan = pan

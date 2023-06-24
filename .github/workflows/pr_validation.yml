@@ -1,0 +1,40 @@
+name: 'PR validation'
+
+on:
+  pull_request:
+
+jobs:
+  validation-job:
+    name: 'PR validation run'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install zsh
+        run: sudo apt-get update; sudo apt-get install zsh
+
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Which python
+        run: which python
+
+      - name: 'Install pipenv'
+        run: pip install pipenv
+
+      - name: 'Install dependencies'
+        run: |
+          pipenv --python $Python_ROOT_DIR/bin/python
+          pipenv install
+          pipenv install --dev
+
+      - name: 'Check isort'
+        run: pipenv run bash ./linters/isort_check.sh
+        continue-on-error: true
+
+      - name: 'Check black'
+        run: pipenv run bash ./linters/black_check.sh
+
+      - name: 'Check pylint.sh'
+        run: pipenv run bash ./linters/pylint.sh -j 0
+        shell: zsh {0}

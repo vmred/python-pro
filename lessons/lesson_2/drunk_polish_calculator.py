@@ -15,10 +15,7 @@ def op_divide(x, y):
 
 
 def main():
-    operators = {'+': op_plus,
-                 '-': op_minus,
-                 '*': op_multiply,
-                 '/': op_divide}
+    operators = {'+': op_plus, '-': op_minus, '*': op_multiply, '/': op_divide}
 
     stack = []
     input_string = input("Expression with space delimiter:").strip().split()

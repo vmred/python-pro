@@ -5,27 +5,26 @@ from variables import LESSON_6_DB_PATH
 
 
 class SQLiteConnection(DBConnection):
+    def __init__(self, db_path: str = LESSON_6_DB_PATH):
+        super().__init__()
+        self.db_path = db_path
+        self.connection = self.create_connection()
 
-    def __init__(self):
-        pass
+    def create_connection(self, db_path=None, **kwargs):
+        return sqlite3.connect(db_path or self.db_path)
 
-    @staticmethod
-    def create_connection():
-        return sqlite3.connect(LESSON_6_DB_PATH)
+    def get_connection(self, new=False, **kwargs):
+        if new or not self.connection:
+            self.connection = self.create_connection()
+        return self.connection
 
-    @classmethod
-    def get_connection(cls, new=False):
-        if new or not cls.connection:
-            cls.connection = cls.create_connection()
-        return cls.connection
-
-    @classmethod
-    def execute_query(cls, query):
-        connection = cls.get_connection()
+    def execute_query(self, query):
+        connection = self.get_connection()
         try:
             cursor = connection.cursor()
-        except:
-            connection = cls.get_connection(new=True)  # Create new connection
+        except Exception as ex:  # pylint: disable=broad-exception-caught
+            print(f'Exception occurred during query execution: {ex}')
+            connection = self.get_connection(new=True)  # Create new connection
             cursor = connection.cursor()
 
         result = cursor.execute(query).fetchall()

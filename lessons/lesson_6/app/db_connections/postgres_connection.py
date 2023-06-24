@@ -1,6 +1,6 @@
 import os
 
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 from psycopg2 import ProgrammingError
 from psycopg2.pool import SimpleConnectionPool
 
@@ -11,8 +11,8 @@ load_dotenv(dotenv_path=LESSON_6_ENV)
 
 
 class PostgresConnection(DBConnection):
-
     def __init__(self):
+        super().__init__()
         self.host = '127.0.0.1'
         self.port = 5432
         self.db_name = os.environ.get('DB_NAME')
@@ -20,7 +20,7 @@ class PostgresConnection(DBConnection):
         self.password = os.environ.get('DB_PASSWORD')
         self.connection_pool = self.create_connection()
 
-    def create_connection(self):
+    def create_connection(self, **kwargs):
         return SimpleConnectionPool(
             1, 10, host=self.host, port=self.port, dbname=self.db_name, user=self.user, password=self.password
         )
