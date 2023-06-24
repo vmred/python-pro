@@ -1,10 +1,9 @@
+from datetime import datetime
 from typing import Any
 from urllib import parse
 
 import dateutil.parser
 import requests
-
-from datetime import datetime
 
 
 def check_if_bank_supported(value: str) -> str:

@@ -1,6 +1,6 @@
 import os
 
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 from psycopg2 import ProgrammingError
 from psycopg2.pool import SimpleConnectionPool
 

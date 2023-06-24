@@ -1,10 +1,10 @@
 import uuid
-import deepdiff
 
+import deepdiff
 import pytest
 
-from lessons.lesson_6.app.card_repository import CardRepository
 from lessons.lesson_6.app.card_model import Card, Status
+from lessons.lesson_6.app.card_repository import CardRepository
 
 
 @pytest.mark.homework8

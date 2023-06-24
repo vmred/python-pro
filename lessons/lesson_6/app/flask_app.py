@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify, request
 
 from lessons.lesson_6.app.card_model import Card
 from lessons.lesson_6.app.card_repository import CardRepository
