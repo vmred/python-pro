@@ -25,14 +25,15 @@ jobs:
       - name: 'Install dependencies'
         run: |
           pipenv --python $Python_ROOT_DIR/bin/python
-          pipenv update
+          pipenv install
+          pipenv install --dev
 
       - name: 'Check isort'
-        run: ./linters/isort_check.sh
+        run: pipenv run bash ./linters/isort_check.sh
 
       - name: 'Check black'
-        run: ./linters/black_check.sh
+        run: pipenv run bash ./linters/black_check.sh
 
       - name: 'Check pylint.sh'
-        run: ./linters/pylint.sh.sh -j 0
+        run: pipenv run bash ./linters/pylint.sh.sh -j 0
         shell: zsh {0}
