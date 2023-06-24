@@ -27,7 +27,7 @@ def create_card():
             expiry_date=request_json.get('expiry_date'),
             issue_date=request_json.get('issue_date'),
             owner_id=request_json.get('owner_id'),
-            status=request_json.get('status')
+            status=request_json.get('status'),
         )
     )
     return jsonify({'id': card_id})

@@ -31,7 +31,7 @@ def get_employees() -> None:
     '''
     Возвращает список
     '''
-    query_sql = f'''
+    query_sql = '''
         SELECT *
           FROM employees;
     '''
@@ -58,7 +58,7 @@ def get_customers(state_name=None, city_name=None) -> List:
 
 
 def get_unique_customers_by_python():
-    query_sql = f'''
+    query_sql = '''
         SELECT FirstName
           FROM customers
     '''
@@ -70,7 +70,7 @@ def get_unique_customers_by_python():
 
 
 def get_unique_customers_by_sql():
-    query_sql = f'''
+    query_sql = '''
             SELECT count(distinct FirstName) as first_names_qty
               FROM customers
     '''

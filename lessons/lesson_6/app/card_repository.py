@@ -11,10 +11,7 @@ class CardRepository:
 
     @staticmethod
     def __init_db_connection(connection_type: str):
-        connections = {
-            'sqlite': SQLiteConnection,
-            'postgres': PostgresConnection
-        }
+        connections = {'sqlite': SQLiteConnection, 'postgres': PostgresConnection}
 
         connection = connections.get(connection_type)
         if not connection:
