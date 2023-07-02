@@ -14,7 +14,6 @@ class TestIntegration:
 
     def test_card_model_create_no_args(self):
         assert Card.objects.create()  # pylint: disable=no-member
-        print(Card.objects.all())  # pylint: disable=no-member
 
     @pytest.mark.parametrize(
         'model, expected',
@@ -61,7 +60,6 @@ class TestIntegration:
         assert not deepdiff.DeepDiff(
             model.__dict__, expected, exclude_paths=["root['_state']", "root['id']", "root['owner_id']"]
         )
-        print(Card.objects.all())  # pylint: disable=no-member
 
     def test_view_get_cards(self, client):
         card = Card(pan='38520000023237')
@@ -69,7 +67,6 @@ class TestIntegration:
         url = reverse('cards')
         response = client.get(url)
         response_json = response.json()
-        print(response_json)
         assert response.status_code == 200
         assert response_json[0]['pan'] == '38520000023237'
         assert response_json[0]['issue_date'] == self.time_now.date().strftime('%Y-%m-%d')
