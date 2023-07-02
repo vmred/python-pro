@@ -1,15 +1,36 @@
-import hashlib
 import json
 import uuid
 from datetime import datetime, timedelta
 
 from django.db import models
 
+from ..utils import hash_data
+
 
 class Status(models.TextChoices):
     NEW = 'new'
     ACTIVE = 'active'
     BLOCKED = 'blocked'
+
+
+def is_valid_card_number(card_number: str):
+    card_number = str(card_number).replace(' ', '')
+    if not card_number.isdigit():
+        return False
+
+    digit_sum = 0
+
+    for i, digit in enumerate(reversed(card_number)):
+        n = int(digit)
+
+        if i % 2 == 0:
+            digit_sum += n
+        elif n >= 5:
+            digit_sum += n * 2 - 9
+        else:
+            digit_sum += n * 2
+
+    return digit_sum % 10 == 0
 
 
 class Card(models.Model):
@@ -22,7 +43,7 @@ class Card(models.Model):
     status = models.CharField(choices=Status.choices, default=Status.NEW)
 
     def save(self, *args, **kwargs):
-        self.cvv = hashlib.sha256(str(self.cvv).encode('utf-8')).hexdigest()
+        self.cvv = hash_data(self.cvv)
 
         if not self.issue_date:
             self.issue_date = datetime.now()
@@ -45,21 +66,6 @@ class Card(models.Model):
             raise ValueError(fail)
 
     @staticmethod
-    def is_valid_card_number(card_number: str):
-        card_number = str(card_number).replace(' ', '')
-        if not card_number.isdigit():
-            return False
-
-        digit_sum = 0
-
-        for i, digit in enumerate(reversed(card_number)):
-            n = int(digit)
-
-            if i % 2 == 0:
-                digit_sum += n
-            elif n >= 5:
-                digit_sum += n * 2 - 9
-            else:
-                digit_sum += n * 2
-
-        return digit_sum % 10 == 0
+    def validate_card_number(pan):
+        if not is_valid_card_number(pan):
+            raise ValueError(f'Card number "{pan}" is not valid')

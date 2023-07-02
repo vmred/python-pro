@@ -8,8 +8,8 @@ from ..models.card import Card
 
 class CardView(View):
     @staticmethod
-    def get(request: HttpRequest):
-        cards = Card.objects.all()
+    def get(request: HttpRequest):  # pylint: disable=unused-argument
+        cards = Card.objects.all()  # pylint: disable=no-member
         return JsonResponse(
             [
                 {
@@ -32,8 +32,7 @@ class CardView(View):
         Card.validate_card_requests_fields(request_body)
         pan = request_body['pan']
 
-        if not Card.is_valid_card_number(pan):
-            raise ValueError(f'Card number "{pan}" is not valid')
+        Card.validate_card_number(pan)
 
         card = Card(
             pan=pan,
