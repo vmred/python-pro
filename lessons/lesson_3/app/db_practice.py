@@ -1,5 +1,4 @@
 import sqlite3
-
 from typing import List
 
 from variables import LESSON_3_DB_PATH
