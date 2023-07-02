@@ -23,7 +23,7 @@ class TestIntegration:
                     pan='374245455400126',
                     cvv='123',
                     status='new',
-                    # owner_id='1' # TODO investigate why raises invalid uuid  pylint:disable=fixme
+                    owner_id=1
                 ),
                 {
                     'pan': '374245455400126',
