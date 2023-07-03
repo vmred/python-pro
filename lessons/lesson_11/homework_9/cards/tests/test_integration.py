@@ -5,7 +5,6 @@ import pytest
 from django.urls import reverse
 
 from ..models.card import Card
-from ..utils import hash_data
 
 
 @pytest.mark.django_db
@@ -21,7 +20,7 @@ class TestIntegration:
             (
                 Card(
                     pan='374245455400126',
-                    cvv='123',
+                    cvv='598',
                     status='new',
                     owner_id=1,
                 ),
@@ -29,14 +28,14 @@ class TestIntegration:
                     'pan': '374245455400126',
                     'expiry_date': time_now + timedelta(days=365 * 2),
                     'issue_date': time_now,
-                    'cvv': hash_data('123'),
+                    'cvv': '598',
                     'status': 'new',
                 },
             ),
             (
                 Card(
                     pan='4111111111111111',
-                    cvv='123',
+                    cvv='598',
                     status='active',
                     issue_date=time_now,
                     expiry_date=time_now + timedelta(days=365),
@@ -45,7 +44,7 @@ class TestIntegration:
                     'pan': '4111111111111111',
                     'expiry_date': time_now + timedelta(days=365),
                     'issue_date': time_now,
-                    'cvv': hash_data('123'),
+                    'cvv': '598',
                     'status': 'active',
                 },
             ),

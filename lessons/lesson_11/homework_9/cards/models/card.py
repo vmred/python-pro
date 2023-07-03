@@ -4,8 +4,6 @@ from datetime import datetime, timedelta
 
 from django.db import models
 
-from ..utils import hash_data
-
 
 class Status(models.TextChoices):
     NEW = 'new'
@@ -43,8 +41,6 @@ class Card(models.Model):
     status = models.CharField(choices=Status.choices, default=Status.NEW)
 
     def save(self, *args, **kwargs):
-        self.cvv = hash_data(self.cvv)
-
         if not self.issue_date:
             self.issue_date = datetime.now()
 
