@@ -1,0 +1,42 @@
+{% extends "cards/cards.html" %}
+{% block cards_create_form %}
+<form action="{% url 'cards_create_form' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>Create new card</h1></legend>
+        <div class="pan">
+            <label>Pan</label>
+            <input type="text" name="pan">
+        </div>
+        <div class="issue_date">
+            <label>Issue date</label>
+            <input type="date" name="issue_date">
+        </div>
+
+        <div class="expiry_date">
+            <label>Expiry date</label>
+            <input type="date" name="expiry_date">
+        </div>
+
+        <div class="cvv">
+            <label>cvv</label>
+            <input type="text" name="cvv">
+        </div>
+
+        <div class="owner_id">
+            <label>Owner id</label>
+            <input type="text" name="owner_id">
+        </div>
+
+        <div class="status">
+            <label>Status</label>
+            <select name="status" id="status">
+
+                <option value="new">new</option>
+                <option value="active">active</option>
+        </select>
+        </div>
+    </fieldset>
+    <input type="submit" value="Create">
+</form>
+{% endblock %}

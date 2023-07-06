@@ -1,0 +1,39 @@
+{% extends "cards/cards.html" %}
+{% load static %}
+
+{% block style %}
+table, th, td {border: 1px solid black;  border-collapse: collapse;}
+{% endblock %}
+
+{% block cards_view_form %}
+{% if cards %}
+
+
+<a href="{% url 'cards_create_form' %}">Add new card</a>
+
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>card id</th>
+            <th>pan</th>
+            <th>expiry date</th>
+            <th>status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for card in cards %}
+        <tr>
+            <td>{{ card.id }}</td>
+            <td>{{ card.pan }}</td>
+            <td>{{ card.expiry_date|date:"M d, Y" }}</td>
+            <td>{{ card.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<p>No data</p>
+{% endif %}
+{% endblock %}
