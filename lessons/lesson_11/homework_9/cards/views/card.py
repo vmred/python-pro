@@ -24,7 +24,7 @@ class CardView(View):
             }
             for card in cards
         ]
-        if request.headers.get('accept') == 'application/json':
+        if request.headers.get('Content-Type') == 'application/json':
             return JsonResponse(context, safe=False)
 
         return render(request, 'cards/cards_view_form.html', {'cards': context}, 'text/html')

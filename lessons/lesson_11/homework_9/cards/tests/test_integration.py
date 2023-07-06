@@ -64,7 +64,7 @@ class TestIntegration:
         card = Card(pan='38520000023237')
         card.save()
         url = reverse('cards')
-        response = client.get(url, headers={'accept': 'application/json'})
+        response = client.get(url, headers={'Content-Type': 'application/json'})
         response_json = response.json()
         assert response.status_code == 200
         assert response_json[0]['pan'] == '38520000023237'
