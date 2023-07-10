@@ -20,6 +20,8 @@ pylint = "==2.16.1"
 django = "==4.2.2"
 psycopg = {extras = ["binary", "pool"], version="*"}
 pytest-django = "==4.5.2"
+djangorestframework = "==3.14.0"
+serializers = "*"
 
 [dev-packages]
 black = "==23.3.0"
