@@ -39,6 +39,8 @@ class Card(models.Model):
     issue_date = models.DateField(blank=True)
     owner_id = models.UUIDField(default=uuid.uuid4)
     status = models.CharField(choices=Status.choices, default=Status.NEW)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.issue_date:
