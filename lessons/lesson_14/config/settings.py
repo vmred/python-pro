@@ -42,9 +42,7 @@ DJANGO_INTERNAL_APPS = [
     'rest_framework',
 ]
 
-PROJECT_APPS = [
-    'cards.apps.CardsConfig'
-]
+PROJECT_APPS = ['cards.apps.CardsConfig']
 
 INSTALLED_APPS = DJANGO_INTERNAL_APPS + PROJECT_APPS
 
@@ -129,8 +127,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissions'
-    ]
-}
+REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissions']}

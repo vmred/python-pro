@@ -1,7 +1,6 @@
 from rest_framework import viewsets
 
-from .card import Card
-from .card import CardSerializer
+from .card import Card, CardSerializer
 
 
 class CardViewSet(viewsets.ModelViewSet):

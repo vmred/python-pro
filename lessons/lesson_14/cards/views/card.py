@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -63,7 +62,7 @@ class CardView(APIView):
             cvv=request.data['cvv'],
             status=request.data['status'],
             owner=request.user,
-            printed_name=request.data.get('printed_name', '')
+            printed_name=request.data.get('printed_name', ''),
         )
         card.save()
         return Response({'id': str(card.id)})
