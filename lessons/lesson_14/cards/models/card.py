@@ -1,7 +1,7 @@
 import json
-import uuid
 from datetime import datetime, timedelta
 
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -37,10 +37,11 @@ class Card(models.Model):
     expiry_date = models.DateField(blank=True)
     cvv = models.CharField()
     issue_date = models.DateField(blank=True)
-    owner_id = models.UUIDField(default=uuid.uuid4)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(choices=Status.choices, default=Status.NEW)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
+    printed_name = models.CharField(max_length=25, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.issue_date:
@@ -54,7 +55,7 @@ class Card(models.Model):
     @staticmethod
     def validate_card_requests_fields(request_data: json) -> None:
         fail = ''
-        required_fields = ['pan', 'cvv', 'owner_id', 'status']
+        required_fields = ['pan', 'cvv', 'status']
 
         for required_field in required_fields:
             if required_field not in request_data.keys():
@@ -67,3 +68,11 @@ class Card(models.Model):
     def validate_card_number(pan):
         if not is_valid_card_number(pan):
             raise ValueError(f'Card number "{pan}" is not valid')
+
+    @staticmethod
+    def activate_card(pk):
+        Card.objects.filter(pk=pk).update(status=Status.ACTIVE)
+
+    @staticmethod
+    def deactivate_card(pk):
+        Card.objects.filter(pk=pk).update(status=Status.BLOCKED)

@@ -6,5 +6,10 @@ from ..models.card import Card
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ['id', 'pan', 'expiry_date', 'issue_date', 'cvv', 'owner_id', 'status']
-        read_only_fields = ['created_at', 'updated_at']
+        fields = '__all__'
+
+
+class UpdateCardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = ['printed_name']
