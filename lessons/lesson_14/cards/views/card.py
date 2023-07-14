@@ -18,7 +18,6 @@ def object_exists(model, request, pk):
 
 
 def activate_card(request, pk):
-    print('activate called')
     card = object_exists(model=Card, request=request, pk=pk)
     if not card:
         return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
@@ -28,7 +27,6 @@ def activate_card(request, pk):
 
 
 def deactivate_card(request, pk):
-    print('deactivate called')
     card = object_exists(model=Card, request=request, pk=pk)
     if not card:
         return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
