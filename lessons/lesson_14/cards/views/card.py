@@ -60,7 +60,6 @@ class CardView(APIView):
             expiry_date=request.data.get('expiry_date'),
             issue_date=request.data.get('issue_date'),
             cvv=request.data['cvv'],
-            status=request.data['status'],
             owner=request.user,
             printed_name=request.data.get('printed_name', ''),
         )

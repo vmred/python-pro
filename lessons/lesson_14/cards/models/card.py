@@ -38,10 +38,10 @@ class Card(models.Model):
     cvv = models.CharField()
     issue_date = models.DateField(blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    status = models.CharField(choices=Status.choices, default=Status.NEW)
+    status = models.CharField(default=Status.NEW)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    printed_name = models.CharField(max_length=25, blank=True)
+    printed_name = models.CharField(max_length=50, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.issue_date:
@@ -55,7 +55,7 @@ class Card(models.Model):
     @staticmethod
     def validate_card_requests_fields(request_data: json) -> None:
         fail = ''
-        required_fields = ['pan', 'cvv', 'status']
+        required_fields = ['pan', 'cvv']
 
         for required_field in required_fields:
             if required_field not in request_data.keys():
