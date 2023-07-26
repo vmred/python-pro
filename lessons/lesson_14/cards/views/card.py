@@ -1,3 +1,4 @@
+from celery import shared_task
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -15,6 +16,21 @@ def object_exists(model, request, pk):
         return model.objects.get(owner=request.user, pk=pk)
     except model.DoesNotExist:
         return None
+
+
+@shared_task
+def task_activate_card(pk: str):
+    Card.activate_card(pk)
+
+
+def activate_card_task(request, pk):
+    card = object_exists(model=Card, request=request, pk=pk)
+    if not card:
+        return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
+
+    task_activate_card.apply_async(args=[pk])
+
+    return JsonResponse({'success': True})
 
 
 def activate_card(request, pk):

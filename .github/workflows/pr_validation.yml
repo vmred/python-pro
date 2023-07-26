@@ -16,9 +16,6 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Which python
-        run: which python
-
       - name: 'Install pipenv'
         run: pip install pipenv
 
