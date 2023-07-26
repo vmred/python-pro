@@ -9,10 +9,6 @@ from ..views.card import task_activate_card
 
 @pytest.mark.django_db
 class TestTasks:
-    pan = get_card_number()
-    cvv = get_card_cvv()
-    printed_name = get_name()
-    databases = '__all__'
 
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True, CELERY_TASK_EAGER_PROPOGATES=True)
     def test_task_activate_card(self):
