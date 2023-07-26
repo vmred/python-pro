@@ -36,3 +36,8 @@ def autotest_user_2(request):
 @pytest.fixture(scope='class')
 def url(request):
     request.cls.url = reverse('cards')
+
+
+@pytest.fixture
+def pre_test(request):
+    request.cls.user = User.objects.create_user(username='12345', password='12345')

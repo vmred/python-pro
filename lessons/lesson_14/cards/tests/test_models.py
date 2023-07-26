@@ -2,14 +2,8 @@ from datetime import datetime, timedelta
 
 import deepdiff
 import pytest
-from django.contrib.auth.models import User
 
 from ..models.card import Card
-
-
-@pytest.fixture
-def pre_test(request):
-    request.cls.user = User.objects.create_user(username='12345', password='12345')
 
 
 @pytest.mark.django_db
@@ -62,8 +56,6 @@ class TestModels:
 
         model.issue_date, expected['issue_date'] = model.issue_date.date(), expected['issue_date'].date()
         model.expiry_date, expected['expiry_date'] = model.expiry_date.date(), expected['expiry_date'].date()
-        print(model.__dict__)
-        print(expected)
         assert not deepdiff.DeepDiff(
             model.__dict__,
             expected,
