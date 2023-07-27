@@ -9,7 +9,6 @@ from ..views.card import task_activate_card
 
 @pytest.mark.django_db
 class TestTasks:
-
     @override_settings(CELERY_TASK_ALWAYS_EAGER=True, CELERY_TASK_EAGER_PROPOGATES=True)
     def test_task_activate_card(self):
         user = User.objects.create_user(username='12345', password='12345')

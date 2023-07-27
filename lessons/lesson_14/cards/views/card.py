@@ -1,5 +1,5 @@
-from datetime import date
 import time
+from datetime import date
 
 from celery import shared_task
 from django.db.models import Q
