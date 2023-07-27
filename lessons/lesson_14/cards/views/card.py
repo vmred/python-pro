@@ -1,3 +1,5 @@
+import time
+
 from celery import shared_task
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -28,7 +30,7 @@ def activate_card_task(request, pk):
     if not card:
         return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
 
-    task_activate_card.apply_async(args=[pk])
+    task_activate_card.apply_async(args=[pk], countdown=120)
 
     return JsonResponse({'success': True})
 
