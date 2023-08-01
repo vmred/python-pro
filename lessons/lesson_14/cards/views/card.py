@@ -1,7 +1,5 @@
-import time
 from datetime import date
 
-from celery import shared_task
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -13,6 +11,7 @@ from rest_framework.views import APIView
 from ..models.card import Card, Status
 from ..permissions import IsOwner
 from ..serializers.card import CardSerializer, UpdateCardSerializer
+from ..tasks import task_activate_card
 
 
 def object_exists(model, request, pk):
@@ -22,23 +21,9 @@ def object_exists(model, request, pk):
         return None
 
 
-@shared_task
-def task_activate_card(pk: str):
-    Card.activate_card(pk)
-
-
 def get_expired_cards(request):
     cards = Card.objects.filter(~Q(status=Status.BLOCKED), expiry_date__lt=date.today())
     return JsonResponse(CardSerializer(cards, many=True).data, safe=False)
-
-
-@shared_task
-def block_expired_cards_task():
-    cards = Card.objects.filter(~Q(status=Status.BLOCKED), expiry_date__lt=date.today())
-    for card in cards:
-        print(f'blocking card with id: {card.id}')
-        Card.deactivate_card(card.id)
-    return True
 
 
 def activate_card_task(request, pk):
