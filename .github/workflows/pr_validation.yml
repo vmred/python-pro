@@ -33,5 +33,4 @@ jobs:
         run: pipenv run bash ./linters/black_check.sh
 
       - name: 'Check pylint.sh'
-        run: pipenv run bash ./linters/pylint.sh -j 0
-        shell: zsh {0}
+        run: pipenv run bash ./linters/pylint.sh
