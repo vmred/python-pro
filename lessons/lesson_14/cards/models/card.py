@@ -71,8 +71,8 @@ class Card(models.Model):
 
     @staticmethod
     def activate_card(pk):
-        Card.objects.filter(pk=pk).update(status=Status.ACTIVE)
+        Card.objects.filter(pk=pk).update(status=Status.ACTIVE)  # pylint: disable=no-member
 
     @staticmethod
     def deactivate_card(pk):
-        Card.objects.filter(pk=pk).update(status=Status.BLOCKED)
+        Card.objects.filter(pk=pk).update(status=Status.BLOCKED)  # pylint: disable=no-member

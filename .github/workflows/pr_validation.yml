@@ -34,3 +34,4 @@ jobs:
 
       - name: 'Check pylint.sh'
         run: pipenv run bash ./linters/pylint.sh
+        shell: zsh
