@@ -21,7 +21,7 @@ class TestInn:
             (123, False),
             ([], False),
             ({}, False),
-            ((), False)
+            ((), False),
         ],
     )
     def test_inn_match(self, inn, is_valid):

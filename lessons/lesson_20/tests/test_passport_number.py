@@ -23,7 +23,7 @@ class TestPassportNumber:
             (123, False),
             ([], False),
             ({}, False),
-            ((), False)
+            ((), False),
         ],
     )
     def test_passport_match(self, passport_number, is_valid):

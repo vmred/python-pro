@@ -21,7 +21,7 @@ class TestCarNumber:
             (123, False),
             ([], False),
             ({}, False),
-            ((), False)
+            ((), False),
         ],
     )
     def test_car_number_match_kharkiv(self, car_number, is_valid):
@@ -44,7 +44,7 @@ class TestCarNumber:
             (123, False),
             ([], False),
             ({}, False),
-            ((), False)
+            ((), False),
         ],
     )
     def test_car_number_match_dnepr(self, car_number, is_valid):
