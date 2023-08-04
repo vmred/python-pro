@@ -18,14 +18,11 @@ class TestInn:
             ('qwertyuiop', False),
             ('123456789P', False),
             ('o123456789', False),
+            (123, False),
+            ([], False),
+            ({}, False),
+            ((), False)
         ],
     )
     def test_inn_match(self, inn, is_valid):
         assert is_inn_valid(inn) == is_valid
-
-    @pytest.mark.parametrize(
-        'inn, exception', [(None, TypeError), ([], TypeError), ({}, TypeError), (['1234567897'], TypeError)]
-    )
-    def test_inn_match_exception(self, inn, exception):
-        with pytest.raises(exception):
-            is_inn_valid(inn)

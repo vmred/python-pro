@@ -20,14 +20,11 @@ class TestPassportNumber:
             ('bk122143', False),
             ('!@#$%^', False),
             (r'.*', False),
+            (123, False),
+            ([], False),
+            ({}, False),
+            ((), False)
         ],
     )
     def test_passport_match(self, passport_number, is_valid):
         assert is_passport_valid(passport_number) == is_valid
-
-    @pytest.mark.parametrize(
-        'passport_number, exception', [(None, TypeError), ([], TypeError), ({}, TypeError), (['MT233400'], TypeError)]
-    )
-    def test_passport_match_exception(self, passport_number, exception):
-        with pytest.raises(exception):
-            is_passport_valid(passport_number)
