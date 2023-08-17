@@ -12,7 +12,6 @@ load_dotenv(dotenv_path=os.path.join(BASE_DIR, '.env'))
 
 app = Sanic('bakery_app')
 
-print(os.environ)
 ingredients_host = os.environ.get('ingredients_host')
 ingredients_api = os.environ.get('ingredients_api')
 
