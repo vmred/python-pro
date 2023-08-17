@@ -27,6 +27,8 @@ django-celery-beat = "==2.5.0"
 django-celery-results = "==2.5.1"
 httpx = "*"
 uvicorn = "*"
+sanic-testing = "*"
+sanic = "==23.6.0"
 
 [dev-packages]
 black = "==23.3.0"
