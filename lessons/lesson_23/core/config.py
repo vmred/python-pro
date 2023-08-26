@@ -23,7 +23,6 @@ def _load_config() -> ApplicationConfig:
     config_path = os.environ.get("CONFIG_PATH", "config.yml")
     with open(config_path, "r") as f:
         config_data = load(f.read(), Loader)
-    print(config_data)
     return ApplicationConfig(**config_data)
 
 
