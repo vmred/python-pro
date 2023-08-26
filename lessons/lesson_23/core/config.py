@@ -1,7 +1,6 @@
+from constants import config_path
 from pydantic import BaseModel
 from yaml import Loader, load
-
-from constants import config_path
 
 
 class DatabaseConfig(BaseModel):

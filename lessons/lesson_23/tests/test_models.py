@@ -1,4 +1,5 @@
 from datetime import date
+
 from models import Book
 
 
@@ -8,7 +9,7 @@ def test_create_book(session):
         author="John Doe",
         date_of_release=date(2020, 1, 1),
         description="A sample book description.",
-        genre="Fiction"
+        genre="Fiction",
     )
 
     session.add(book)

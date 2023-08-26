@@ -1,8 +1,7 @@
 from uuid import uuid4
 
-from sqlalchemy import Column, String, Date, UUID
-
 from core.db.session import Base
+from sqlalchemy import UUID, Column, Date, String
 
 
 class Book(Base):

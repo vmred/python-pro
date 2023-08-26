@@ -2,11 +2,10 @@ import asyncio
 from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import pool
-from sqlalchemy.ext.asyncio import create_async_engine
-
 from core.config import config
 from models import Base
+from sqlalchemy import pool
+from sqlalchemy.ext.asyncio import create_async_engine
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -58,9 +57,7 @@ async def run_migrations_online():
     In this scenario we need to create an Engine
     and associate a connection with the context.
     """
-    connectable = create_async_engine(
-        config.main_database.connection_string(), poolclass=pool.NullPool
-    )
+    connectable = create_async_engine(config.main_database.connection_string(), poolclass=pool.NullPool)
 
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
