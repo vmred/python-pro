@@ -1,6 +1,7 @@
 from contextvars import ContextVar, Token
 from typing import Union
 
+from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_scoped_session,
@@ -26,7 +27,7 @@ def reset_session_context(context: Token) -> None:
 
 
 engines = {
-    "main": create_async_engine(
+    "main": create_engine(
         config.main_database.connection_string(), pool_recycle=3600
     )
 }
@@ -34,7 +35,7 @@ engines = {
 
 class RoutingSession(Session):
     def get_bind(self, mapper=None, clause=None, **kw):
-        return engines['main'].sync_engine
+        return engines['main']
 
 
 async_session_factory = sessionmaker(
